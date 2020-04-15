@@ -1,11 +1,15 @@
 # Waffler
 
-A small program to help make your writing more sophisticated.
+A small program to help make your writing more "sophisticated".
 
 ## Download and installation
 
 1. Download and extract this repository's source code
-2. Navigate to the downloaded folder using a shell, then run `pip install .`
+2. Navigate to the downloaded folder using a shell, then run the following:
+
+```console
+$ pip install .
+```
 
 ## Usage
 
