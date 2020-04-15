@@ -1,3 +1,4 @@
+import click
 from nltk.corpus import wordnet
 
 
@@ -12,13 +13,18 @@ def __get_synonyms(word: str):
 
     # Removes underscores from those synonyms with multiple words
     synonyms = [s.replace("_", " ") for s in synonyms]
-    synonyms = list(set(synonyms)) # Removes duplicate synonyms
+    synonyms = list(set(synonyms))  # Removes duplicate synonyms
     return synonyms
 
 
 # Replaces each 'significant' word of an essay with
 # a more complicated counterpart
-def waffle(essay: str):
+@click.command()
+@click.argument("source")
+@click.option("-f", "--file", "is_file", is_flag=True,
+              help="Source the essay content from a file.")
+def waffle(source: str, is_file: bool):
+    essay = open(source).read() if is_file else source
     waffled = ""
     for word in essay.split(" "):
         synonyms = __get_synonyms(word)
@@ -29,7 +35,8 @@ def waffle(essay: str):
             waffled += word + " "
         else:
             waffled += synonyms[0] + " "
-    return waffled
+    click.echo(waffled)
 
 
-print(waffle("I have a lot of time on my hands"))
+if __name__ == "__main__":
+    waffle()
